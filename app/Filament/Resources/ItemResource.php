@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\HomeResource\Pages;
-use App\Filament\Resources\HomeResource\RelationManagers;
-use App\Models\Home;
+use App\Filament\Resources\ItemResource\Pages;
+use App\Filament\Resources\ItemResource\RelationManagers;
+use App\Models\Item;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class HomeResource extends Resource
+class ItemResource extends Resource
 {
-    protected static ?string $model = Home::class;
+    protected static ?string $model = Item::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-home';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('home_id')
+                    ->relationship('home', 'name')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -33,6 +36,9 @@ class HomeResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('home.name')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
             ])
@@ -58,17 +64,17 @@ class HomeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ItemsRelationManager::class
+            //
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListHomes::route('/'),
-            'create' => Pages\CreateHome::route('/create'),
-            'view' => Pages\ViewHome::route('/{record}'),
-            'edit' => Pages\EditHome::route('/{record}/edit'),
+            'index' => Pages\ListItems::route('/'),
+            'create' => Pages\CreateItem::route('/create'),
+            'view' => Pages\ViewItem::route('/{record}'),
+            'edit' => Pages\EditItem::route('/{record}/edit'),
         ];
     }
 

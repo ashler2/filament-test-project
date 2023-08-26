@@ -4,29 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Home extends Model
+class Item extends Model
 {
     use HasFactory, SoftDeletes;
 
-    /**
-     * Fillable attributes
-     *
-     * @var string[]
-     */
     protected $fillable = [
+        'home_id',
         'name',
     ];
 
     /**
-     * The Items relationship
+     * The Home Relationship
      *
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function items(): HasMany
+    public function home(): BelongsTo
     {
-        return $this->hasMany(Item::class);
+        return $this->belongsTo(Home::class);
     }
 }
