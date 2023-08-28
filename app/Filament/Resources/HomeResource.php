@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HomeResource\Pages;
 use App\Filament\Resources\HomeResource\RelationManagers;
+use App\Filament\Resources\HomeResource\Widgets\HomeItems;
 use App\Models\Home;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -69,6 +70,13 @@ class HomeResource extends Resource
             'create' => Pages\CreateHome::route('/create'),
             'view' => Pages\ViewHome::route('/{record}'),
             'edit' => Pages\EditHome::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            HomeItems::class,
         ];
     }
 

@@ -17,4 +17,11 @@ class ViewHome extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            HomeResource\Widgets\HomeItems::class,
+        ];
+    }
 }
